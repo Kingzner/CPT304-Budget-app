@@ -1,214 +1,239 @@
-//SELECT ELEMENTS
-const balanceEl = document.querySelector(".balance .value");
-const incomeTotalEl = document.querySelector(".income-total");
-const outcomeTotalEl = document.querySelector(".outcome-total");
-const incomeEl = document.querySelector("#income");
-const expenseEl = document.querySelector("#expense");
-const allEl = document.querySelector("#all");
-const incomeList = document.querySelector("#income .list");
-const expenseList = document.querySelector("#expense .list");
-const allList = document.querySelector("#all .list");
+const budgetApp = (() => {
+  let ENTRY_LIST = [];
+  let balance = 0, income = 0, outcome = 0;
+  const DELETE = "delete", EDIT = "edit";
+  const DEFAULT_LANGUAGE = "en";
+  let currentLanguage = "en";
 
-//SELECT BUTTONS
-const expenseBtn = document.querySelector(".first-tab");
-const incomeBtn = document.querySelector(".second-tab");
-const allBtn = document.querySelector(".third-tab");
+  const TRANSLATIONS = {
+    en: {
+      balance: "Balance",
+      income: "Income",
+      outcome: "Outcome",
+      dashboard: "Dashboard",
+      expenses: "Expenses",
+      all: "All",
+      titlePlaceholder: "title",
+      amountPlaceholder: "$0",
+      addExpense: "Add expense",
+      addIncome: "Add income",
+      expenseTitleLabel: "Expense title",
+      expenseAmountLabel: "Expense amount",
+      incomeTitleLabel: "Income title",
+      incomeAmountLabel: "Income amount",
+    },
+    zh: {
+      balance: "余额",
+      income: "收入",
+      outcome: "支出",
+      dashboard: "仪表盘",
+      expenses: "支出",
+      all: "全部",
+      titlePlaceholder: "标题",
+      amountPlaceholder: "$0",
+      addExpense: "添加支出",
+      addIncome: "添加收入",
+      expenseTitleLabel: "支出标题",
+      expenseAmountLabel: "支出金额",
+      incomeTitleLabel: "收入标题",
+      incomeAmountLabel: "收入金额",
+    },
+  };
 
-//INPUT BTS
-const addExpense = document.querySelector(".add-expense");
-const expenseTitle = document.getElementById("expense-title-input");
-const expenseAmount = document.getElementById("expense-amount-input");
-
-const addIncome = document.querySelector(".add-income");
-const incomeTitle = document.getElementById("income-title-input");
-const incomeAmount = document.getElementById("income-amount-input");
-
-//VARIABLES
-let ENTRY_LIST;
-let balance = 0,
-  income = 0,
-  outcome = 0;
-const DELETE = "delete",
-  EDIT = "edit";
-
-// LOOK IF THERE IS DATA IN LOCAL STORAGE
-try {
-    const storedData = localStorage.getItem("entry_list");
-    ENTRY_LIST = storedData ? JSON.parse(storedData) : [];
-    if (!Array.isArray(ENTRY_LIST)) {
+  function loadFromStorage() {
+    try {
+      const storedData = localStorage.getItem("entry_list");
+      ENTRY_LIST = storedData ? JSON.parse(storedData) : [];
+      if (!Array.isArray(ENTRY_LIST)) {
+        ENTRY_LIST = [];
+      }
+      return ENTRY_LIST;
+    } catch (e) {
       ENTRY_LIST = [];
+      return ENTRY_LIST;
     }
-  } catch (e) {
+  }
+
+  function saveToStorage() {
+    localStorage.setItem("entry_list", JSON.stringify(ENTRY_LIST));
+  }
+
+  function validateAmount(amount) {
+    const num = Number(amount);
+    return isFinite(num) && num > 0;
+  }
+
+  function addEntry(type, title, amount) {
+    if (!validateAmount(amount)) return false;
+    const entry = { type, title, amount: Number(amount) };
+    ENTRY_LIST.push(entry);
+    return true;
+  }
+
+  function deleteEntry(index) {
+    if (index >= 0 && index < ENTRY_LIST.length) {
+      ENTRY_LIST.splice(index, 1);
+      return true;
+    }
+    return false;
+  }
+
+  function calculateTotal(type, list = ENTRY_LIST) {
+    let sum = 0;
+    list.forEach((entry) => {
+      if (entry.type === type) {
+        sum += entry.amount;
+      }
+    });
+    return sum;
+  }
+
+  function calculateBalance(inc, out) {
+    return inc - out;
+  }
+
+  function getLanguage() {
+    return localStorage.getItem("budget_language") || DEFAULT_LANGUAGE;
+  }
+
+  function setLanguage(language) {
+    currentLanguage = TRANSLATIONS[language] ? language : DEFAULT_LANGUAGE;
+    localStorage.setItem("budget_language", currentLanguage);
+    return currentLanguage;
+  }
+
+  function getEntryList() {
+    return [...ENTRY_LIST];
+  }
+
+  function getTranslations() {
+    return TRANSLATIONS;
+  }
+
+  function resetState() {
     ENTRY_LIST = [];
+    balance = 0;
+    income = 0;
+    outcome = 0;
   }
-updateUI();
 
-//EVENT LISTENERS
-expenseBtn.addEventListener("click", function () {
-  show(expenseEl);
-  hide([incomeEl, allEl]);
-  active(expenseBtn);
-  inactive([incomeBtn, allBtn]);
-});
-incomeBtn.addEventListener("click", function () {
-  show(incomeEl);
-  hide([expenseEl, allEl]);
-  active(incomeBtn);
-  inactive([expenseBtn, allBtn]);
-});
-allBtn.addEventListener("click", function () {
-  show(allEl);
-  hide([incomeEl, expenseEl]);
-  active(allBtn);
-  inactive([incomeBtn, expenseBtn]);
-});
-
-addExpense.addEventListener("click", function () {
-  // CHECK IF ONE OF THE INPUT IS EMPTY => EXIT
-  if (!expenseTitle.value || !expenseAmount.value) return;
-
-  // ADD INPUTs TO ENTRY_LIST
-  const amount = Number(expenseAmount.value);
-  if (!isFinite(amount) || amount <= 0) return;
-  let expense = {
-    type: "expense",
-    title: expenseTitle.value,
-    amount: amount,
-  };
-  ENTRY_LIST.push(expense);
-
-  updateUI();
-  clearInput([expenseTitle, expenseAmount]);
-});
-
-addIncome.addEventListener("click", function () {
-  // CHECK IF ONE OF THE INPUT IS EMPTY => EXIT
-  if (!incomeTitle.value || !incomeAmount.value) return;
-
-  // ADD INPUTs TO ENTRY_LIST
-  const amount = Number(incomeAmount.value);
-  if (!isFinite(amount) || amount <= 0) return;
-  let income = {
-    type: "income",
-    title: incomeTitle.value,
-    amount: amount,
-  };
-  ENTRY_LIST.push(income);
-
-  updateUI();
-  clearInput([incomeTitle, incomeAmount]);
-});
-
-incomeList.addEventListener("click", deleteOrEdit);
-expenseList.addEventListener("click", deleteOrEdit);
-allList.addEventListener("click", deleteOrEdit);
-
-// HELEPER FUNCS
-function deleteOrEdit(event) {
-  const targetBtn = event.target;
-  const entry = targetBtn.parentNode;
-
-  if (targetBtn.id == EDIT) {
-    editEntry(entry);
-  } else if (targetBtn.id == DELETE) {
-    deleteEntry(entry);
+  function generateEntryHTML(type, title, amount, id) {
+    return `<li id="${id}" class="${type}">
+              <div class="entry">${title} : $${amount}</div>
+              <div id="edit"></div>
+              <div id="delete"></div>
+            </li>`;
   }
-}
 
-function deleteEntry(entry) {
-  ENTRY_LIST.splice(entry.id, 1);
-  updateUI();
-}
-
-function editEntry(entry) {
-  const ENTRY = ENTRY_LIST[entry.id];
-
-  if (ENTRY.type == "income") {
-    incomeTitle.value = ENTRY.title;
-    incomeAmount.value = ENTRY.amount;
-  } else if (ENTRY.type == "expense") {
-    expenseTitle.value = ENTRY.title;
-    expenseAmount.value = ENTRY.amount;
+  function formatBalance(income, outcome) {
+    const balance = Math.abs(calculateBalance(income, outcome));
+    const sign = income >= outcome ? "$" : "-$";
+    return { balance, sign, formatted: `<small>${sign}</small>${balance}` };
   }
-  deleteEntry(entry);
-}
 
-function updateUI() {
-  income = calculateTotal("income", ENTRY_LIST);
-  outcome = calculateTotal("expense", ENTRY_LIST);
-  balance = Math.abs(calculateBalance(income, outcome));
+  function updateLanguageDOM(translatableText, translatablePlaceholders, translatableAriaLabels, languageButtons, language) {
+    const lang = setLanguage(language);
+    const translations = TRANSLATIONS[lang];
 
-  let sign = income >= outcome ? "$" : "-$";
+    document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
 
-  //UPDATE UI
-  balanceEl.innerHTML = `<small>${sign}</small>${balance}`;
-  outcomeTotalEl.innerHTML = `<small>$</small>${outcome}`;
-  incomeTotalEl.innerHTML = `<small>$</small>${income}`;
-
-  clearElement([expenseList, incomeList, allList]);
-
-  ENTRY_LIST.forEach((entry, index) => {
-    if (entry.type == "expense") {
-      showEntry(expenseList, entry.type, entry.title, entry.amount, index);
-    } else if (entry.type == "income") {
-      showEntry(incomeList, entry.type, entry.title, entry.amount, index);
+    if (translatableText) {
+      translatableText.forEach((element) => {
+        element.textContent = translations[element.dataset.i18n];
+      });
     }
-    showEntry(allList, entry.type, entry.title, entry.amount, index);
-  });
-  updateChart(income, outcome);
-  localStorage.setItem("entry_list", JSON.stringify(ENTRY_LIST));
-}
-
-function showEntry(list, type, title, amount, id) {
-  const entry = `<li id="${id}" class="${type}">
-                    <div class="entry">${title} : $${amount}</div>
-                    <div id="edit"></div>
-                    <div id="delete"></div>
-                  </li>`;
-  const position = "afterbegin";
-  list.insertAdjacentHTML(position, entry);
-}
-
-function clearElement(elements) {
-  elements.forEach((element) => {
-    element.innerHTML = "";
-  });
-}
-
-function calculateTotal(type, list) {
-  let sum = 0;
-  list.forEach((entry) => {
-    if (entry.type == type) {
-      sum += entry.amount;
+    if (translatablePlaceholders) {
+      translatablePlaceholders.forEach((element) => {
+        element.placeholder = translations[element.dataset.i18nPlaceholder];
+      });
     }
-  });
-  return sum;
-}
+    if (translatableAriaLabels) {
+      translatableAriaLabels.forEach((element) => {
+        element.setAttribute(
+          "aria-label",
+          translations[element.dataset.i18nAriaLabel]
+        );
+      });
+    }
+    if (languageButtons) {
+      languageButtons.forEach((button) => {
+        button.classList.toggle("active", button.dataset.lang === lang);
+      });
+    }
+    return lang;
+  }
 
-function calculateBalance(income, outcome) {
-  return income - outcome;
-}
-function clearInput(inputs) {
-  inputs.forEach((input) => {
-    input.value = "";
-  });
-}
+  function toggleVisibility(element, elementsToHide, elementToActive, elementsToDeactivate) {
+    if (element) element.classList.remove("hide");
+    if (elementsToHide) {
+      elementsToHide.forEach((el) => {
+        if (el) el.classList.add("hide");
+      });
+    }
+    if (elementToActive) elementToActive.classList.add("focus");
+    if (elementsToDeactivate) {
+      elementsToDeactivate.forEach((el) => {
+        if (el) el.classList.remove("focus");
+      });
+    }
+  }
 
-function show(element) {
-  element.classList.remove("hide");
-}
+  function clearElements(elements) {
+    if (elements) {
+      elements.forEach((element) => {
+        if (element) element.innerHTML = "";
+      });
+    }
+  }
 
-function hide(elements) {
-  elements.forEach((element) => {
-    element.classList.add("hide");
-  });
-}
+  function clearInputs(inputs) {
+    if (inputs) {
+      inputs.forEach((input) => {
+        if (input) input.value = "";
+      });
+    }
+  }
 
-function active(element) {
-  element.classList.add("focus");
-}
-function inactive(elements) {
-  elements.forEach((element) => {
-    element.classList.remove("focus");
-  });
+  function renderEntries(entryList, expenseList, incomeList, allList) {
+    clearElements([expenseList, incomeList, allList].filter(Boolean));
+
+    entryList.forEach((entry, index) => {
+      const html = generateEntryHTML(entry.type, entry.title, entry.amount, index);
+      if (entry.type === "expense" && expenseList) {
+        expenseList.insertAdjacentHTML("afterbegin", html);
+      } else if (entry.type === "income" && incomeList) {
+        incomeList.insertAdjacentHTML("afterbegin", html);
+      }
+      if (allList) {
+        allList.insertAdjacentHTML("afterbegin", html);
+      }
+    });
+  }
+
+  return {
+    loadFromStorage,
+    saveToStorage,
+    validateAmount,
+    addEntry,
+    deleteEntry,
+    calculateTotal,
+    calculateBalance,
+    getLanguage,
+    setLanguage,
+    getEntryList,
+    getTranslations,
+    resetState,
+    ENTRY_LIST,
+    generateEntryHTML,
+    formatBalance,
+    updateLanguageDOM,
+    toggleVisibility,
+    clearElements,
+    clearInputs,
+    renderEntries,
+  };
+})();
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = budgetApp;
 }
