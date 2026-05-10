@@ -1,13 +1,23 @@
 [![codecov](https://codecov.io/gh/Kingzner/CPT304-Budget-app/graph/badge.svg?token=A97N5FBBKF)](https://codecov.io/gh/Kingzner/CPT304-Budget-app)
 # Budget-App-JavaScript
 
-Welcome to the Budget App! This project is the result of following a comprehensive YouTube tutorial that guides you through building a budget management application from scratch. With this app, you can efficiently track your income, expenses, and overall budget, gaining better control of your financial situation.
+A personal budget management web application built with JavaScript, HTML, and CSS.
+
+## Features
+
+- ✅ Income & Expense Tracking
+- ✅ Real-time Budget Calculation
+- ✅ Circular Chart Visualization
+- ✅ i18n (English / 中文)
+- ✅ Cookie Banner + Privacy Policy
+- ✅ Accessibility (100% Lighthouse Score)
+- ✅ Test Coverage (99% via Jest)
 
 ## Demo
 You can check out the live demo of the Budget App here.
 **Online Demo of Project :**
 
-<a href="https://smircodes.github.io/Budget-app/" title="Budget-App">Link to Budget App</a>
+[<a href="https://smircodes.github.io/Budget-app/" title="Budget-App">Link to Budget App</a>](https://cpt304-budget-app-at7a.onrender.com/)
 
 ## Features
 
