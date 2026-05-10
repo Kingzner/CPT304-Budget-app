@@ -16,6 +16,139 @@ body {
   font-family: "Gilroy";
 }
 
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #1a0034;
+  color: #fff;
+  padding: 15px 20px;
+  z-index: 1000;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.cookie-banner.show {
+  transform: translateY(0);
+}
+
+.cookie-content {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.cookie-title {
+  font-family: "Gilroy Bold";
+  font-size: 1.1em;
+  margin-bottom: 8px;
+}
+
+.cookie-message {
+  font-size: 0.9em;
+  opacity: 0.9;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.cookie-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.cookie-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: "Gilroy Bold";
+  font-size: 0.9em;
+}
+
+.cookie-btn.accept-btn {
+  background-color: #fff;
+  color: #1a0034;
+}
+
+.cookie-btn.policy-btn {
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.privacy-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.privacy-modal.show {
+  display: flex;
+}
+
+.privacy-content {
+  background-color: #fff;
+  border-radius: 16px;
+  max-width: 400px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.privacy-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.privacy-title {
+  font-family: "Gilroy Bold";
+  font-size: 1.3em;
+  color: #1a0034;
+}
+
+.close-modal {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  color: #999;
+  padding: 0 10px;
+}
+
+.privacy-body {
+  padding: 20px;
+  color: #333;
+}
+
+.privacy-body h3 {
+  font-family: "Gilroy Bold";
+  color: #1a0034;
+  margin-top: 20px;
+  margin-bottom: 8px;
+}
+
+.privacy-body h3:first-child {
+  margin-top: 0;
+}
+
+.privacy-body p {
+  line-height: 1.5;
+  opacity: 0.8;
+  margin: 0;
+}
+
 * {
   font-family: "Gilroy";
   list-style: none;
@@ -57,6 +190,14 @@ input[type="number"] {
   margin-left: 20px;
   margin-right: 20px;
 }
+
+.budget-container .app-title a {
+  color: #fff;
+}
+.budget-container .app-title a b {
+  font-family: "Gilroy Bold";
+}
+
 .language-switch {
   display: inline-flex;
   gap: 4px;
@@ -64,7 +205,7 @@ input[type="number"] {
   border: 1px solid rgba(255, 255, 255, 0.45);
   border-radius: 8px;
 }
- 
+
 .language-switch .lang-btn {
   min-width: 42px;
   height: 28px;
@@ -76,17 +217,10 @@ input[type="number"] {
   cursor: pointer;
   font-family: "Gilroy Bold";
 }
- 
-.language-switch .lang-btn.active {
-   color: #2a0355;
-   background: #fff;
-}
 
-.budget-container .app-title a {
-  color: #fff;
-}
-.budget-container .app-title a b {
-  font-family: "Gilroy Bold";
+.language-switch .lang-btn.active {
+  color: #2a0355;
+  background: #fff;
 }
 
 .budget-header {
@@ -301,6 +435,13 @@ input[type="number"] {
   margin-left: -10px;
   border-radius: 0 10px 10px 0;
   border: none;
+}
+
+.budget-dashboard #expense .input .add-expense,
+.budget-dashboard #income .input .add-income {
+  padding: 0;
+  border: none;
+  background: transparent;
 }
 
 .budget-dashboard #expense .input .add-expense img {
