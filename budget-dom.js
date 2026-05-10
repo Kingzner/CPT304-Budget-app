@@ -12,6 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const translatablePlaceholders = document.querySelectorAll("[data-i18n-placeholder]");
   const translatableAriaLabels = document.querySelectorAll("[data-i18n-aria-label]");
   const languageButtons = document.querySelectorAll(".lang-btn");
+  const cookieBanner = document.getElementById("cookieBanner");
+  const privacyModal = document.getElementById("privacyModal");
+  const closeModal = document.getElementById("closeModal");
+  const acceptCookiesBtn = document.querySelector(".accept-btn");
+  const viewPolicyBtn = document.querySelector(".policy-btn");
   const expenseBtn = document.querySelector(".first-tab");
   const incomeBtn = document.querySelector(".second-tab");
   const allBtn = document.querySelector(".third-tab");
@@ -66,6 +71,13 @@ document.addEventListener('DOMContentLoaded', () => {
   budgetApp.updateLanguageDOM(translatableText, translatablePlaceholders, translatableAriaLabels, languageButtons, budgetApp.getLanguage());
   updateUI();
 
+  const cookieConsent = budgetApp.getCookieConsent();
+  if (!cookieConsent && cookieBanner) {
+    setTimeout(() => {
+      cookieBanner.classList.add("show");
+    }, 500);
+  }
+
   if (expenseBtn) {
     expenseBtn.addEventListener("click", () => {
       budgetApp.toggleVisibility(expenseEl, [incomeEl, allEl], expenseBtn, [incomeBtn, allBtn]);
@@ -86,6 +98,29 @@ document.addEventListener('DOMContentLoaded', () => {
       budgetApp.updateLanguageDOM(translatableText, translatablePlaceholders, translatableAriaLabels, languageButtons, button.dataset.lang);
     });
   });
+  if (acceptCookiesBtn) {
+    acceptCookiesBtn.addEventListener("click", () => {
+      budgetApp.acceptCookies();
+      cookieBanner.classList.remove("show");
+    });
+  }
+  if (viewPolicyBtn) {
+    viewPolicyBtn.addEventListener("click", () => {
+      privacyModal.classList.add("show");
+    });
+  }
+  if (closeModal) {
+    closeModal.addEventListener("click", () => {
+      privacyModal.classList.remove("show");
+    });
+  }
+  if (privacyModal) {
+    privacyModal.addEventListener("click", (e) => {
+      if (e.target === privacyModal) {
+        privacyModal.classList.remove("show");
+      }
+    });
+  }
   if (addExpenseBtn) {
     addExpenseBtn.addEventListener("click", () => {
       if (!expenseTitle.value || !expenseAmount.value) return;
