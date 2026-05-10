@@ -19,15 +19,6 @@ You can check out the live demo of the Budget App here.
 
 Online Demo：**[Budget App](https://cpt304-budget-app-at7a.onrender.com/)**
 
-## Features
-
-- Income and Expense Tracking: The Budget App allows you to enter your sources of income and expenses, categorizing them for better organization.
-
-- Budget Calculation: Based on the provided income and expenses, the app calculates your budget by subtracting expenses from income, giving you a clear overview of your financial status.
-
-- Monthly Reports: Get a comprehensive monthly report that summarizes your income, expenses, and the resulting budget. This helps you understand your spending patterns over time.
-
-- Simple and Intuitive Interface: The app boasts a user-friendly interface, making it easy for anyone to navigate and use, even if you have little to no prior experience with budgeting applications.
 
 ## Usage
 1. Clone the repository or download the ZIP file.
