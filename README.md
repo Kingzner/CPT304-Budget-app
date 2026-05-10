@@ -17,7 +17,7 @@ A personal budget management web application built with JavaScript, HTML, and CS
 You can check out the live demo of the Budget App here.
 **Online Demo of Project :**
 
-[<a href="https://smircodes.github.io/Budget-app/" title="Budget-App">Link to Budget App</a>](https://cpt304-budget-app-at7a.onrender.com/)
+Online Demo：**[Budget App](https://cpt304-budget-app-at7a.onrender.com/)**
 
 ## Features
 
