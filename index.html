@@ -11,30 +11,34 @@
     <div class="budget-container">
       <div class="app-title">
         <a href="">Budget<b>App</b></a>
+        <div class="language-switch" aria-label="Language switch">
+          <button class="lang-btn active" data-lang="en" type="button">EN</button>
+          <button class="lang-btn" data-lang="zh" type="button">中文</button>
+        </div>
       </div>
       <div class="budget-header">
         <div class="balance">
-          <div class="title">Balance</div>
+          <div class="title" data-i18n="balance">Balance</div>
           <div class="value"><small>$</small>0</div>
         </div>
         <div class="account">
           <div class="income">
-            <div class="title">Income</div>
+            <div class="title" data-i18n="income">Income</div>
             <div class="income-total"><small>$</small>0</div>
           </div>
           <div class="chart"></div>
           <div class="outcome">
-            <div class="title">Outcome</div>
+            <div class="title" data-i18n="outcome">Outcome</div>
             <div class="outcome-total"><small>$</small>0</div>
           </div>
         </div>
       </div>
       <div class="budget-dashboard">
-        <div class="dash-title">Dashboard</div>
+        <div class="dash-title" data-i18n="dashboard">Dashboard</div>
         <div class="toggle">
-          <div class="first-tab">Expenses</div>
-          <div class="second-tab">Income</div>
-          <div class="third-tab focus">All</div>
+          <div class="first-tab" data-i18n="expenses">Expenses</div>
+          <div class="second-tab" data-i18n="income">Income</div>
+          <div class="third-tab focus" data-i18n="all">All</div>
         </div>
         <div class="hide" id="expense">
           <ul class="list"></ul>
@@ -43,6 +47,8 @@
               type="text"
               id="expense-title-input"
               name="title"
+              data-i18n-placeholder="titlePlaceholder"
+              data-i18n-aria-label="expenseTitleLabel"
               placeholder="title"
               aria-label="Expense title"
             />
@@ -50,13 +56,21 @@
               type="number"
               id="expense-amount-input"
               name="amount"
+              data-i18n-placeholder="amountPlaceholder"
+              data-i18n-aria-label="expenseAmountLabel"
               placeholder="$0"
               min="0.01"
               step="0.01"
               aria-label="Expense amount"
             />
-            <div class="add-expense"><img src="icon/plus.png" alt="+" aria-label="Add expense"/></div>
-            <div class="add-expense"><img src="icon/plus.png" alt="+" /></div>
+            <button
+              class="add-expense"
+              type="button"
+              data-i18n-aria-label="addExpense"
+              aria-label="Add expense"
+            >
+              <img src="icon/plus.png" alt="+" />
+            </button>
           </div>
         </div>
         <div class="hide" id="income">
@@ -66,6 +80,8 @@
               type="text"
               id="income-title-input"
               name="title"
+              data-i18n-placeholder="titlePlaceholder"
+              data-i18n-aria-label="incomeTitleLabel"
               placeholder="title"
               aria-label="Income title"
             />
@@ -73,13 +89,21 @@
               type="number"
               id="income-amount-input"
               name="amount"
+              data-i18n-placeholder="amountPlaceholder"
+              data-i18n-aria-label="incomeAmountLabel"
               placeholder="$0"
               min="0.01"
               step="0.01"
               aria-label="Income amount"
             />
-            <div class="add-income"><img src="icon/plus.png" alt="+" aria-label="Add income"/></div>
-            <div class="add-income"><img src="icon/plus.png" alt="+" /></div>
+            <button
+              class="add-income"
+              type="button"
+              data-i18n-aria-label="addIncome"
+              aria-label="Add income"
+            >
+              <img src="icon/plus.png" alt="+" />
+            </button>
           </div>
         </div>
         <div id="all">
@@ -89,5 +113,6 @@
     </div>
     <script src="./chart.js"></script>
     <script src="./budget.js"></script>
+    <script src="./budget-dom.js"></script>
   </body>
 </html>
