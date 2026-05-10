@@ -60,10 +60,12 @@ addExpense.addEventListener("click", function () {
   if (!expenseTitle.value || !expenseAmount.value) return;
 
   // ADD INPUTs TO ENTRY_LIST
+  const amount = Number(expenseAmount.value);
+  if (!isFinite(amount) || amount <= 0) return;
   let expense = {
     type: "expense",
     title: expenseTitle.value,
-    amount: +expenseAmount.value,
+    amount: amount,
   };
   ENTRY_LIST.push(expense);
 
@@ -76,10 +78,12 @@ addIncome.addEventListener("click", function () {
   if (!incomeTitle.value || !incomeAmount.value) return;
 
   // ADD INPUTs TO ENTRY_LIST
+  const amount = Number(incomeAmount.value);
+  if (!isFinite(amount) || amount <= 0) return;
   let income = {
     type: "income",
     title: incomeTitle.value,
-    amount: +incomeAmount.value,
+    amount: amount,
   };
   ENTRY_LIST.push(income);
 
