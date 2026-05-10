@@ -21,6 +21,19 @@ const budgetApp = (() => {
       expenseAmountLabel: "Expense amount",
       incomeTitleLabel: "Income title",
       incomeAmountLabel: "Income amount",
+      cookieTitle: "Cookie Notice",
+      cookieMessage: "This app uses cookies to store your budget data locally. By using this app, you agree to our privacy policy.",
+      acceptCookies: "Accept",
+      viewPolicy: "View Policy",
+      privacyPolicy: "Privacy Policy",
+      dataCollection: "Data Collection",
+      dataCollectionText: "This app only collects and stores your budget data locally on your device using localStorage. We do not transmit any data to external servers.",
+      dataUsage: "Data Usage",
+      dataUsageText: "Your budget data is used solely for the purpose of displaying your income, expenses, and balance within this application.",
+      dataStorage: "Data Storage",
+      dataStorageText: "Your data is stored locally in your browser's localStorage. You can clear this data at any time by clearing your browser data.",
+      cookies: "Cookies",
+      cookiesText: "This app uses cookies to remember your language preference and cookie consent.",
     },
     zh: {
       balance: "余额",
@@ -37,6 +50,19 @@ const budgetApp = (() => {
       expenseAmountLabel: "支出金额",
       incomeTitleLabel: "收入标题",
       incomeAmountLabel: "收入金额",
+      cookieTitle: "Cookie 通知",
+      cookieMessage: "此应用使用 cookies 在本地存储您的预算数据。使用此应用即表示您同意我们的隐私政策。",
+      acceptCookies: "接受",
+      viewPolicy: "查看政策",
+      privacyPolicy: "隐私政策",
+      dataCollection: "数据收集",
+      dataCollectionText: "此应用仅通过 localStorage 在您的设备上本地收集和存储预算数据。我们不会将任何数据传输到外部服务器。",
+      dataUsage: "数据使用",
+      dataUsageText: "您的预算数据仅用于在应用中显示您的收入、支出和余额。",
+      dataStorage: "数据存储",
+      dataStorageText: "您的数据存储在浏览器的 localStorage 中。您可以随时通过清除浏览器数据来清除这些数据。",
+      cookies: "Cookies",
+      cookiesText: "此应用使用 cookies 来记住您的语言偏好和 cookie 同意设置。",
     },
   };
 
@@ -100,6 +126,15 @@ const budgetApp = (() => {
     currentLanguage = TRANSLATIONS[language] ? language : DEFAULT_LANGUAGE;
     localStorage.setItem("budget_language", currentLanguage);
     return currentLanguage;
+  }
+
+  function acceptCookies() {
+    localStorage.setItem("cookie_consent", "accepted");
+    return true;
+  }
+
+  function getCookieConsent() {
+    return localStorage.getItem("cookie_consent");
   }
 
   function getEntryList() {
@@ -220,6 +255,8 @@ const budgetApp = (() => {
     calculateBalance,
     getLanguage,
     setLanguage,
+    acceptCookies,
+    getCookieConsent,
     getEntryList,
     getTranslations,
     resetState,
