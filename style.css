@@ -50,8 +50,36 @@ input[type="number"] {
 }
 
 .budget-container .app-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-top: 20px;
   margin-left: 20px;
+  margin-right: 20px;
+}
+.language-switch {
+  display: inline-flex;
+  gap: 4px;
+  padding: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 8px;
+}
+ 
+.language-switch .lang-btn {
+  min-width: 42px;
+  height: 28px;
+  padding: 0 8px;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  background: transparent;
+  cursor: pointer;
+  font-family: "Gilroy Bold";
+}
+ 
+.language-switch .lang-btn.active {
+   color: #2a0355;
+   background: #fff;
 }
 
 .budget-container .app-title a {
