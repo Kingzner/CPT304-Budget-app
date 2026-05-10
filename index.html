@@ -8,6 +8,36 @@
     <link href="./style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
+    <div class="cookie-banner" id="cookieBanner">
+      <div class="cookie-content">
+        <div class="cookie-title" data-i18n="cookieTitle">Cookie Notice</div>
+        <div class="cookie-message" data-i18n="cookieMessage">
+          This app uses cookies to store your budget data locally. By using this app, you agree to our privacy policy.
+        </div>
+        <div class="cookie-actions">
+          <button class="cookie-btn accept-btn" type="button" data-i18n="acceptCookies">Accept</button>
+          <button class="cookie-btn policy-btn" type="button" data-i18n="viewPolicy">View Policy</button>
+        </div>
+      </div>
+    </div>
+    <div class="privacy-modal" id="privacyModal">
+      <div class="privacy-content">
+        <div class="privacy-header">
+          <div class="privacy-title" data-i18n="privacyPolicy">Privacy Policy</div>
+          <button class="close-modal" type="button" id="closeModal">&times;</button>
+        </div>
+        <div class="privacy-body">
+          <h3 data-i18n="dataCollection">Data Collection</h3>
+          <p data-i18n="dataCollectionText">This app only collects and stores your budget data locally on your device using localStorage. We do not transmit any data to external servers.</p>
+          <h3 data-i18n="dataUsage">Data Usage</h3>
+          <p data-i18n="dataUsageText">Your budget data is used solely for the purpose of displaying your income, expenses, and balance within this application.</p>
+          <h3 data-i18n="dataStorage">Data Storage</h3>
+          <p data-i18n="dataStorageText">Your data is stored locally in your browser's localStorage. You can clear this data at any time by clearing your browser data.</p>
+          <h3 data-i18n="cookies">Cookies</h3>
+          <p data-i18n="cookiesText">This app uses cookies to remember your language preference and cookie consent.</p>
+        </div>
+      </div>
+    </div>
     <div class="budget-container">
       <div class="app-title">
         <a href="">Budget<b>App</b></a>
