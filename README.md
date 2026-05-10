@@ -1,4 +1,4 @@
-[![Codecov](https://codecov.io/gh/Kingzner/CPT304-Budget-app/branch/main/graph/badge.svg)](https://codecov.io/gh/Kingzner/CPT304-Budget-app)
+![Codecov Coverage](https://codecov.io/gh/Kingzner/CPT304-Budget-app/branch/main/graph/badge.svg?token=c1eadf9a-399b-4763-8a64-c6f1b991b13d)
 
 
 
