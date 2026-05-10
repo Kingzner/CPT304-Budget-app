@@ -5,13 +5,13 @@ A personal budget management web application built with JavaScript, HTML, and CS
 
 ## Features
 
-- ✅ Income & Expense Tracking
-- ✅ Real-time Budget Calculation
-- ✅ Circular Chart Visualization
-- ✅ i18n (English / 中文)
-- ✅ Cookie Banner + Privacy Policy
-- ✅ Accessibility (100% Lighthouse Score)
-- ✅ Test Coverage (99% via Jest)
+-  Income & Expense Tracking
+-  Real-time Budget Calculation
+-  Circular Chart Visualization
+-  i18n (English / 中文)
+-  Cookie Banner + Privacy Policy
+-  Accessibility (100% Lighthouse Score)
+-  Test Coverage (99% via Jest)
 
 ## Demo
 You can check out the live demo of the Budget App here.
