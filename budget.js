@@ -32,7 +32,15 @@ const DELETE = "delete",
   EDIT = "edit";
 
 // LOOK IF THERE IS DATA IN LOCAL STORAGE
-ENTRY_LIST = JSON.parse(localStorage.getItem("entry_list")) || [];
+try {
+    const storedData = localStorage.getItem("entry_list");
+    ENTRY_LIST = storedData ? JSON.parse(storedData) : [];
+    if (!Array.isArray(ENTRY_LIST)) {
+      ENTRY_LIST = [];
+    }
+  } catch (e) {
+    ENTRY_LIST = [];
+  }
 updateUI();
 
 //EVENT LISTENERS
