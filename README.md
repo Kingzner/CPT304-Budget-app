@@ -1,6 +1,4 @@
 [![Codecov](https://codecov.io/gh/Kingzner/CPT304-Budget-app/branch/main/graph/badge.svg)](https://codecov.io/gh/Kingzner/CPT304-Budget-app)
-
-
 # Budget-App-JavaScript
 
 Welcome to the Budget App! This project is the result of following a comprehensive YouTube tutorial that guides you through building a budget management application from scratch. With this app, you can efficiently track your income, expenses, and overall budget, gaining better control of your financial situation.
